@@ -3,6 +3,10 @@ import { useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleUser } from "@fortawesome/free-regular-svg-icons";
 import { faBox } from "@fortawesome/free-solid-svg-icons";
+import { faTruck } from "@fortawesome/free-solid-svg-icons";
+import { faCartShopping} from "@fortawesome/free-solid-svg-icons";
+import { faCashRegister} from "@fortawesome/free-solid-svg-icons";
+
 
 export default function AdminLayout({ children }: { children: React.ReactNode}) {
     const awaitTimeout = (delay: number)  => new Promise(resolve => setTimeout(resolve, delay));
@@ -55,7 +59,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode}) 
                         <div className="card bg-dark text-white text-center">
                             <div className="card-body dropdown">
                                 <button className="btn btn-dark dropdown-toggle" type="button" id="dropdownProveedores" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Proveedores <i className="fas fa-truck fa-2x"></i>
+                                    Proveedores <FontAwesomeIcon icon={faTruck} size="lg"/>
                                 </button>
                                 <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownProveedores">
                                     <li><a className="dropdown-item" href="#">Lista de proveedores</a></li>
@@ -68,7 +72,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode}) 
                         <div className="card bg-dark text-white text-center">
                             <div className="card-body dropdown">
                                 <button className="btn btn-dark dropdown-toggle" type="button" id="dropdownPedidos" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Pedidos <i className="fas fa-shopping-cart fa-2x"></i>
+                                    Pedidos <FontAwesomeIcon icon={faCartShopping} size="lg"/>
                                 </button>
                                 <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownPedidos">
                                     <li><a className="dropdown-item" href="#">Lista de pedidos</a></li>
@@ -81,7 +85,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode}) 
                         <div className="card bg-dark text-white text-center">
                             <div className="card-body dropdown">
                                 <button className="btn btn-dark dropdown-toggle" type="button" id="dropdownVentas" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Ventas <i className="fas fa-cash-register fa-2x"></i>
+                                    Ventas <FontAwesomeIcon icon={faCashRegister} size="lg"/>
                                 </button>
                                 <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownVentas">
                                     <li><a className="dropdown-item" href="#">Historial de ventas</a></li>

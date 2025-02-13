@@ -71,7 +71,7 @@ export default function Login() {
                   onChange={handleChange}
                 />
                 <label className="form-label" htmlFor="form3Example4">
-                  contraseña
+                  Contraseña
                 </label>
               </div>
 
@@ -84,7 +84,7 @@ export default function Login() {
                     id="form2Example3"
                   />
                   <label className="form-check-label" htmlFor="form2Example3">
-                    Recordar
+                    RECORDAR
                   </label>
                 </div>
                 <a href="#!" className="text-body">

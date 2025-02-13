@@ -1,0 +1,18 @@
+import { NextResponse } from "next/server";
+
+export async function POST(): Promise<NextResponse> {
+    // const { user_name, password } = await req.json();
+    const resp: NextResponse = NextResponse.json({
+        status: 200
+    });
+    resp.cookies.set({
+        name: "token",
+        value: "",
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+        maxAge: 0,
+        path: "/",
+    });
+    return resp;
+}
