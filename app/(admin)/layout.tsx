@@ -40,7 +40,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode}) 
                             <li><a className="dropdown-item" href="#">Perfil</a></li>
                             <li><a className="dropdown-item" href="#">Configuración</a></li>
                             <li><hr className="dropdown-divider"/></li>
-                            <li><a className="dropdown-item" href="#" onClick={() => removeCookie()}>Cerrar sesión</a></li>
+                            <li><button className="dropdown-item" onClick={() => removeCookie()}>Cerrar sesión</button></li>
                         </ul>
                     </li>
 
@@ -70,7 +70,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode}) 
                                 </button>
                                 <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownProveedores">
                                     <li><a className="dropdown-item" href="#">Lista de proveedores</a></li>
-                                    <li><a className="dropdown-item" href="#">Registrar proveedor</a></li>
+                                    <li><button className="dropdown-item" onClick={() => redirect('/proveedores/registrar')}>Registrar proveedor</button></li>
                                 </ul>
                             </div>
                         </div>
@@ -102,8 +102,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode}) 
                         </div>
                     </div>
                 </div>
+                <main>{children}</main>
             </div>
-            <main>{children}</main>
+            
         </>
     );
   }
