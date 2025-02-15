@@ -6,7 +6,8 @@ import { faBox } from "@fortawesome/free-solid-svg-icons";
 import { faTruck } from "@fortawesome/free-solid-svg-icons";
 import { faCartShopping} from "@fortawesome/free-solid-svg-icons";
 import { faCashRegister} from "@fortawesome/free-solid-svg-icons";
-
+import 'bootstrap/dist/js/bootstrap.bundle.min'
+import { redirect } from "next/navigation";
 
 export default function AdminLayout({ children }: { children: React.ReactNode}) {
     const awaitTimeout = (delay: number)  => new Promise(resolve => setTimeout(resolve, delay));
@@ -18,9 +19,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode}) 
     };
 
     useEffect(() => {
-      console.log("AdminLayout");
       alertSession();
     }, []);
+
+    const removeCookie = async () => {
+        await fetch(`/api/auth/logout`, {
+          method: "POST"
+        });
+        redirect('/login')
+      }
 
     return (
         <>
@@ -33,7 +40,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode}) 
                             <li><a className="dropdown-item" href="#">Perfil</a></li>
                             <li><a className="dropdown-item" href="#">Configuración</a></li>
                             <li><hr className="dropdown-divider"/></li>
-                            <li><a className="dropdown-item" href="#">Cerrar sesión</a></li>
+                            <li><a className="dropdown-item" href="#" onClick={() => removeCookie()}>Cerrar sesión</a></li>
                         </ul>
                     </li>
 
