@@ -47,11 +47,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode}) 
                 </ul>
             </nav>
 
-            <div className="container-fluid px-4 mt-3">
+            <div className="container-fluid px-3 mt-3">
                 <div className="row">
                     <div className="col-md-3">
-                        <div className="card bg-dark text-white text-center">
-                            <div className="card-body dropdown">
+                        <div className="card bg-dark text-white text-center" style={{height:"50px"}}>
+                            <div className="card-body dropdown p-2 d-flex justify-content-center">
                                 <button className="btn btn-dark dropdown-toggle" type="button" id="dropdownProductos" data-bs-toggle="dropdown" aria-expanded="false">
                                     Productos <FontAwesomeIcon icon={faBox} size="lg"/>
                                 </button>
@@ -62,22 +62,22 @@ export default function AdminLayout({ children }: { children: React.ReactNode}) 
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-3">
-                        <div className="card bg-dark text-white text-center">
-                            <div className="card-body dropdown">
+                    <div className="col-md-3" >
+                        <div className="card bg-dark text-white text-center" style={{height:"50px"}}>
+                            <div className="card-body dropdown p-2 d-flex justify-content-center">
                                 <button className="btn btn-dark dropdown-toggle" type="button" id="dropdownProveedores" data-bs-toggle="dropdown" aria-expanded="false">
                                     Proveedores <FontAwesomeIcon icon={faTruck} size="lg"/>
                                 </button>
                                 <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownProveedores">
-                                    <li><a className="dropdown-item" href="#">Lista de proveedores</a></li>
+                                    <li><button className="dropdown-item" onClick={()=> redirect('/proveedores/lista')}>Lista de proveedores</button></li>
                                     <li><button className="dropdown-item" onClick={() => redirect('/proveedores/registrar')}>Registrar proveedor</button></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div className="col-md-3">
-                        <div className="card bg-dark text-white text-center">
-                            <div className="card-body dropdown">
+                        <div className="card bg-dark text-white text-center" style={{height:"50px"}}>
+                            <div className="card-body dropdown p-2 d-flex justify-content-center">
                                 <button className="btn btn-dark dropdown-toggle" type="button" id="dropdownPedidos" data-bs-toggle="dropdown" aria-expanded="false">
                                     Pedidos <FontAwesomeIcon icon={faCartShopping} size="lg"/>
                                 </button>
@@ -89,8 +89,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode}) 
                         </div>
                     </div>
                     <div className="col-md-3">
-                        <div className="card bg-dark text-white text-center">
-                            <div className="card-body dropdown">
+                        <div className="card bg-dark text-white text-center" style={{height:"50px"}}>
+                            <div className="card-body dropdown p-2 d-flex justify-content-center">
                                 <button className="btn btn-dark dropdown-toggle" type="button" id="dropdownVentas" data-bs-toggle="dropdown" aria-expanded="false">
                                     Ventas <FontAwesomeIcon icon={faCashRegister} size="lg"/>
                                 </button>
