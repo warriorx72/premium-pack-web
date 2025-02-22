@@ -9,53 +9,53 @@ const ListaPage = () => {
             <thead>
               <tr>
                 <th>#</th>
-                <th>Nombre</th>
-                <th>Correo</th>
-                <th>Telefono</th>
-                <th>Productos</th>
-                <th>Dirección</th>
+                <th>ID</th>
+                <th>Producto</th>
+                <th>Especificaciones</th>
+                <th>Proveedores</th>
+                <th>Cantidad</th>
               </tr>
             </thead>
             <tbody id="myTable">
               <tr>
                 <td>1</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>Table cell</td>
+                <td>Table cell</td>
+                <td>Table cell</td>
+                <td>Table cell</td>
+                <td>Table cell</td>
               </tr>
               <tr>
                 <td>2</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>Table cell</td>
+                <td>Table cell</td>
+                <td>Table cell</td>
+                <td>Table cell</td>
+                <td>Table cell</td>
               </tr>
               <tr>
                 <td>3</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>Table cell</td>
+                <td>Table cell</td>
+                <td>Table cell</td>
+                <td>Table cell</td>
+                <td>Table cell</td>
               </tr>
               <tr>
                 <td>4</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>Table cell</td>
+                <td>Table cell</td>
+                <td>Table cell</td>
+                <td>Table cell</td>
+                <td>Table cell</td>
               </tr>
               <tr className="success">
                 <td>5</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>Table cell</td>
+                <td>Table cell</td>
+                <td>Table cell</td>
+                <td>Table cell</td>
+                <td>Table cell</td>
               </tr>
             </tbody>
           </table>
@@ -96,6 +96,6 @@ const ListaPage = () => {
         </nav>
       </div>
     </div>
-  )
+ )
 }
 export default ListaPage;

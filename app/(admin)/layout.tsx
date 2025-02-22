@@ -56,8 +56,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode}) 
                                     Productos <FontAwesomeIcon icon={faBox} size="lg"/>
                                 </button>
                                 <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownProductos">
-                                    <li><a className="dropdown-item" href="#">Ver productos</a></li>
-                                    <li><a className="dropdown-item" href="#">Agregar producto</a></li>
+                                    <li><button className="dropdown-item" onClick={()=> redirect('/productos/lista')}>Ver productos</button></li>
+                                    <li><button className="dropdown-item" onClick={()=> redirect('/productos/registrar')}>Agregar producto</button></li>
                                 </ul>
                             </div>
                         </div>
@@ -82,8 +82,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode}) 
                                     Pedidos <FontAwesomeIcon icon={faCartShopping} size="lg"/>
                                 </button>
                                 <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownPedidos">
-                                    <li><a className="dropdown-item" href="#">Lista de pedidos</a></li>
-                                    <li><a className="dropdown-item" href="#">Nuevo pedido</a></li>
+                                    <li><button className="dropdown-item" onClick={() => redirect('/pedidos/lista')}>Lista de pedidos</button></li>
                                 </ul>
                             </div>
                         </div>
@@ -95,8 +94,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode}) 
                                     Ventas <FontAwesomeIcon icon={faCashRegister} size="lg"/>
                                 </button>
                                 <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownVentas">
-                                    <li><a className="dropdown-item" href="#">Historial de ventas</a></li>
-                                    <li><a className="dropdown-item" href="#">Nueva venta</a></li>
+                                    <li><button className="dropdown-item" onClick={() => redirect('/ventas/lista')}>Historial de ventas</button></li>
+                                    <li><button className="dropdown-item" onClick={() => redirect('/ventas/registrar')}>Nueva venta</button></li>
                                 </ul>
                             </div>
                         </div>

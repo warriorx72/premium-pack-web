@@ -2,60 +2,63 @@ import React from "react";
 
 const ListaPage = () => {
   return (
-    <div className="container p-5 mx-auto mt-5 flex-column justify-content-center rounded shadow container-fluid justify-content-center align-items-center" style={{maxWidth: '1800px', width: '100%'}}>
+    <div
+      className="container p-5 mx-auto mt-5 flex-column justify-content-center rounded shadow container-fluid justify-content-center align-items-center"
+      style={{ maxWidth: "1800px", width: "100%" }}
+    >
       <div className="row">
         <div className="table-responsive">
           <table className="table table-hover">
             <thead>
               <tr>
-                <th>#</th>
-                <th>Nombre</th>
-                <th>Correo</th>
-                <th>Telefono</th>
-                <th>Productos</th>
-                <th>Dirección</th>
+                <th>No.</th>
+                <th>Fecha</th>
+                <th>Cliente</th>
+                <th>Detalle del pedido</th>
+                <th>Total</th>
+                <th>Pago</th>
               </tr>
             </thead>
             <tbody id="myTable">
               <tr>
                 <td>1</td>
+                <td>20/02/2025</td>
+                <td>username</td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>$</td>
+                <td>Pagado</td>
               </tr>
               <tr>
                 <td>2</td>
+                <td>20/02/2025</td>
+                <td>username</td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>$</td>
+                <td>Pendiente</td>
               </tr>
               <tr>
                 <td>3</td>
+                <td>20/02/2025</td>
+                <td>username</td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>$</td>
+                <td>Pendiente</td>
               </tr>
               <tr>
                 <td>4</td>
+                <td>20/02/2025</td>
+                <td>username</td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>$</td>
+                <td>Pendiente</td>
               </tr>
               <tr className="success">
                 <td>5</td>
+                <td>20/02/2025</td>
+                <td>username</td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>$</td>
+                <td>Cancelado</td>
               </tr>
             </tbody>
           </table>
@@ -66,7 +69,6 @@ const ListaPage = () => {
               <a
                 className="page-link bg-dark text-white border-dark"
                 href="#"
-                tabIndex="-1"
                 aria-disabled="true"
               >
                 Previous
@@ -96,6 +98,6 @@ const ListaPage = () => {
         </nav>
       </div>
     </div>
-  )
-}
+  );
+};
 export default ListaPage;
