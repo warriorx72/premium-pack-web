@@ -8,6 +8,7 @@ import { faCartShopping} from "@fortawesome/free-solid-svg-icons";
 import { faCashRegister} from "@fortawesome/free-solid-svg-icons";
 import 'bootstrap/dist/js/bootstrap.bundle.min'
 import { redirect } from "next/navigation";
+import { axiosBff } from "../api/axiosInstance";
 
 export default function AdminLayout({ children }: { children: React.ReactNode}) {
     const awaitTimeout = (delay: number)  => new Promise(resolve => setTimeout(resolve, delay));
@@ -23,9 +24,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode}) 
     }, []);
 
     const removeCookie = async () => {
-        await fetch(`/api/auth/logout`, {
-          method: "POST"
-        });
+        await axiosBff.post(`/auth/logout`);
         redirect('/login')
       }
 

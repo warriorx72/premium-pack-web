@@ -1,41 +1,61 @@
+'use client'
+import { patterns } from '@/app/form.constants';
 import React from 'react'
+import { useForm, SubmitHandler } from "react-hook-form"
+import { postBffSupplier } from '../../services/suppliers';
 
+export interface SupplierInputs {
+    name: string;
+    address: string;
+    email: string;
+    phone: string;
+  }
 const RegistrarPage = () => {
+
+    const {
+      register,
+      handleSubmit,
+      formState: { errors },
+    } = useForm<SupplierInputs>();
+
+    const onSubmit: SubmitHandler<SupplierInputs> = (data: SupplierInputs) => {
+        postBffSupplier(data).then((response) => {console.log(response)});
+    }
+
+    const isValidField = (field: string) => {
+        return errors[field as keyof typeof errors] ? "is-invalid" : "";
+      };
+
+    const validateNoEmptySpaces = (value: string) => {
+        return (
+            value.trim().length > 2
+        );
+    };
+
     return (
-            <div className="p-4 px-4 mt-4 rounded shadow container-fluid justify-content-center align-items-center" style={{maxWidth: '1800px', width: '100%', backgroundColor: '#f9f9f9' }}>
-            <form className="row g-2 mt-2">
+        <div className="p-4 px-4 mt-4 rounded shadow container-fluid justify-content-center align-items-center" style={{ maxWidth: '1800px', width: '100%', backgroundColor: '#f9f9f9' }}>
+            <form className="row g-2 mt-2" onSubmit={handleSubmit(onSubmit)}>
                 <div className="col-md-6">
-                    <label  className="form-label">Nombre</label>
-                    <input type="email" className="form-control" id="inputEmail4"/>
-                </div>
-                <div className="col-md-6">
-                    <label className="form-label">Apellidos</label>
-                    <input type="password" className="form-control" id="inputPassword4"/>
+                    <label className="form-label">Nombre</label>
+                    <input type="text" className={`form-control ${isValidField("name")}`} id="inputEmail4" {...register("name", { required: true, minLength: 3, maxLength: 100, validate: validateNoEmptySpaces })} />
                 </div>
                 <div className="col-12">
-                    <label  className="form-label">Dirección</label>
-                    <input type="text" className="form-control" id="inputAddress" placeholder="1234 Main St"/>
+                    <label className="form-label">Dirección</label>
+                    <input type="text" className={`form-control ${isValidField("address")}`} id="inputAddress" placeholder="1234 Main St" {...register("address", { required: true, minLength: 3, maxLength: 100, validate: validateNoEmptySpaces })} />
                 </div>
                 <div className="col-12">
-                    <label  className="form-label">Correo Electronico</label>
-                    <input type="text" className="form-control" id="inputAddress2" placeholder="@gmail.com"/>
+                    <label className="form-label">Correo Electronico</label>
+                    <input type="email" className={`form-control ${isValidField("email")}`} id="inputAddress2" placeholder="@gmail.com" {...register("email", { pattern: patterns.email, required: true, validate: validateNoEmptySpaces })} />
                 </div>
                 <div className="col-md-6">
-                    <label  className="form-label">Telefono</label>
-                    <input type="text" className="form-control" id="inputCity"/>
-                </div>
-                <div className="col-md-4">
-                    <label  className="form-label">Productos</label>
-                    <select id="inputState" className="form-select">
-                        <option selected>Choose...</option>
-                        <option>...</option>
-                    </select>
+                    <label className="form-label">Telefono</label>
+                    <input type="text" className={`form-control ${isValidField("phone")}`} id="inputCity" {...register("phone", { required: true, minLength: 10, maxLength: 10, validate: validateNoEmptySpaces })} />
                 </div>
                 <div className="col-md-2 px-4 mt-5">
-                    <button type="submit" className="btn btn-primary px-2 ">Registrar</button>
+                    <input type="submit" className={`btn btn-primary px-2`} value={"Registrar"} />
                 </div>
             </form>
-            </div>
+        </div>
     )
 }
 
