@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import auth from './slice/authSlice'
 import supplier from './slice/supplierSlice'
+import global from './slice/globalSlice'
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       auth,
-      supplier
+      supplier,
+      global
     },
   })
 }

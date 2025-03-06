@@ -1,6 +1,7 @@
 import { UUID } from "crypto";
 import { SupplierInputs } from "../proveedores/registrar/page";
 import { axiosBaas, axiosBff } from "@/app/api/axiosInstance";
+import axios from "axios";
 
 
 export interface SupplierResponse {
@@ -41,20 +42,36 @@ export interface Pageable  {
   sort: SortEnum;
 }
 
+export interface ErrorResponse {
+  code: string;
+  uuid: UUID;
+  path: string;
+  timestamp: string;
+}
+
 export const postSupplier = async (supplierInputs: SupplierInputs, token: string): Promise<SupplierResponse> => {
-  const res = await axiosBaas.post(`/supplier`, supplierInputs, { headers: { Authorization: "Bearer " + token } });
-  if (res.status !== 200) {
-    throw new Error('Error fetching');
+  try {
+    const res = await axiosBaas.post(`/supplier`, supplierInputs, { headers: { Authorization: "Bearer " + token } });
+    console.log(res);
+    return await res.data as SupplierResponse;
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      throw err;
+    } else {
+      console.error(err);
+      throw new Error('Error fetching');
+    }
   }
-  return await res.data as SupplierResponse;
 };
 
 export const postBffSupplier = async (supplierInputs: SupplierInputs): Promise<SupplierResponse> => {
-  const res = await axiosBff.post(`/supplier`, supplierInputs);
-  if (res.status !== 200) {
+  try {
+    const res = await axiosBff.post(`/supplier`, supplierInputs);
+    return await res.data as SupplierResponse;
+  } catch (err) {
+    console.log(err);
     return {} as SupplierResponse;
   }
-  return await res.data as SupplierResponse;
 };
 
 export const getSuppliers = async (pageable: Pageable, token: string): Promise<SuppliersResponse> => {
@@ -71,4 +88,27 @@ export const getBffSuppliers = async (pageable: Pageable): Promise<SuppliersResp
     throw new Error('Error fetching');
   }
   return await res.data as SuppliersResponse;
+};
+
+export const deleteSupplier = async (id: UUID, token: string): Promise<SupplierResponse> => {
+  try {
+    const res = await axiosBaas.delete(`/supplier/${id}`, { headers: { Authorization: "Bearer " + token } });
+    return await res.data as SupplierResponse;
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      throw err;
+    } else {
+      throw new Error('Error fetching');
+    }
+  }
+};
+
+export const deleteBffSupplier = async (id: UUID): Promise<SupplierResponse> => {
+  try {
+    const res = await axiosBff.delete(`/supplier/${id}`);
+    return await res.data as SupplierResponse;
+  } catch (err) {
+    console.log(err);
+    return {} as SupplierResponse;
+  }
 };

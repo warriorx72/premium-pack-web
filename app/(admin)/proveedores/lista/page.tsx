@@ -1,24 +1,41 @@
 'use client'
 import React, { useEffect } from "react";
-import { Pageable, PageableResponse, SuppliersContentResponse } from "../../services/suppliers";
+import { Pageable, PageableResponse, SortEnum, SuppliersContentResponse } from "../../services/suppliers";
 import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
-import { fetchGetSuppliers } from "@/app/store/thunk/supplierThunk";
+import { fetchDeleteSupplier, fetchGetSuppliers } from "@/app/store/thunk/supplierThunk";
 import PaginationComponent from "@/app/components/PaginationComponent";
+import { UUID } from "crypto";
+import ModalComponent, { ModalData } from "@/app/components/ModalComponent";
+import { useRouter } from "next/navigation";
+import { deleteSupplier } from "@/app/store/slice/supplierSlice";
 
 const ListaPage = () => {
   const dispatch = useAppDispatch();
   const supplierState = useAppSelector((state) => state.supplier);
   const [suppliers, setSuppliers] = React.useState<SuppliersContentResponse[]>([]);
   const [paging, setPaging] = React.useState<PageableResponse>({} as PageableResponse);
+  const [isModalActive, setIsModalActive] = React.useState<boolean>(false);
+  const [id, setId] = React.useState<UUID | undefined>();
 
-  useEffect(() => {  
+  useEffect(() => {
     setSuppliers(supplierState.supplierList.content);
     setPaging(supplierState.supplierList.page);
   }, [supplierState.supplierList]);
-  
+
   const handleFetchSuppliers = (paging: Pageable) => {
-    dispatch(fetchGetSuppliers( paging ));
+    dispatch(fetchGetSuppliers(paging));
   };
+
+  const handleDeleteSupplier = (id: UUID) => {
+    dispatch(fetchDeleteSupplier(id));
+    setIsModalActive(false);
+    dispatch(deleteSupplier(id));
+  };
+
+  const handleOpenModal = (id: UUID) => {
+    setIsModalActive(true);
+    setId(id);
+  }
 
   return (
     <div
@@ -49,7 +66,7 @@ const ListaPage = () => {
                       <button type="button" className="btn btn-primary">
                         Editar
                       </button>
-                      <button type="button" className="btn btn-danger mx-2">
+                      <button type="button" className="btn btn-danger mx-2" onClick={() => handleOpenModal(supplier.uuid)}>
                         Eliminar
                       </button>
                     </td>
@@ -64,6 +81,12 @@ const ListaPage = () => {
           total_elements={paging?.total_elements}
           total_pages={paging?.total_pages}
           fetchData={handleFetchSuppliers}
+        />
+        <ModalComponent
+          data={suppliers?.find((supplier) => supplier.uuid === id) as ModalData}
+          isModalActive={isModalActive}
+          setIsModalActive={setIsModalActive}
+          handleAction={handleDeleteSupplier} 
         />
       </div>
     </div>

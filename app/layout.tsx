@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "bootstrap/dist/css/bootstrap.min.css";
 import StoreProvider from "./store/storeProvider";
+import LoadingOverlayComponent from "./components/LoadingOverlayComponent";
 
 
 const geistSans = Geist({
@@ -26,7 +27,10 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <StoreProvider>{children}</StoreProvider>
+        <StoreProvider>
+          <LoadingOverlayComponent />
+          {children}
+        </StoreProvider>
       </body>
     </html>
   );

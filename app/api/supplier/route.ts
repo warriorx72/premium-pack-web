@@ -1,8 +1,9 @@
-import { getSuppliers, Pageable, postSupplier, SortEnum, SupplierResponse, SuppliersResponse } from "@/app/(admin)/services/suppliers";
+import { ErrorResponse, getSuppliers, Pageable, postSupplier, SortEnum, SupplierResponse, SuppliersResponse } from "@/app/(admin)/services/suppliers";
 import { NextRequest, NextResponse } from "next/server";
 import { SupplierInputs } from '../../(admin)/proveedores/registrar/page';
+import axios from "axios";
 
-export async function POST(req: NextRequest): Promise<NextResponse> {
+export async function POST(req: NextRequest): Promise<Response> {
   const jwt: string = req.cookies.get("token")?.value as string;
   const supplierInputs: SupplierInputs = await req.json();
   try {
@@ -10,15 +11,23 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     const resp: NextResponse = NextResponse.json(rs);
     return resp;
   } catch (err) {
-    console.error(err);
-    return NextResponse.json(
-      {
-        message: "Invalid credentials",
-      },
-      {
-        status: 401,
-      }
-    );
+    if (axios.isAxiosError(err)) {
+      const errorResponse: ErrorResponse = {...err?.response?.data} as ErrorResponse;
+      console.log(errorResponse.uuid);
+      return new Response(JSON.stringify(errorResponse), {
+        status: err?.status
+      })
+    } else {
+      console.error(err);
+      return NextResponse.json(
+        {
+          message: "Invalid credentials",
+        },
+        {
+          status: 401,
+        }
+      );
+    }
   }
 }
 

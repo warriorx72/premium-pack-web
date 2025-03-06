@@ -2,7 +2,9 @@
 import { patterns } from '@/app/form.constants';
 import React from 'react'
 import { useForm, SubmitHandler } from "react-hook-form"
-import { postBffSupplier } from '../../services/suppliers';
+import { useAppDispatch } from '@/app/store/hooks';
+import { fetchPostSupplier } from '@/app/store/thunk/supplierThunk';
+import { useRouter } from 'next/navigation';
 
 export interface SupplierInputs {
     name: string;
@@ -12,6 +14,10 @@ export interface SupplierInputs {
   }
 const RegistrarPage = () => {
 
+    const dispatch = useAppDispatch();
+    const router = useRouter();
+    
+
     const {
       register,
       handleSubmit,
@@ -19,7 +25,8 @@ const RegistrarPage = () => {
     } = useForm<SupplierInputs>();
 
     const onSubmit: SubmitHandler<SupplierInputs> = (data: SupplierInputs) => {
-        postBffSupplier(data).then((response) => {console.log(response)});
+        dispatch(fetchPostSupplier(data));
+        router.push("/proveedores/lista");
     }
 
     const isValidField = (field: string) => {
