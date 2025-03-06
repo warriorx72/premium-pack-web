@@ -9,8 +9,7 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
     ];
-  },
-  reactStrictMode: false
+  }
 };
 
 export default nextConfig;
