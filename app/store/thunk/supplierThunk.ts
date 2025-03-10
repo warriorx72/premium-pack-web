@@ -1,5 +1,5 @@
 import { SupplierInputs } from "@/app/(admin)/proveedores/registrar/page"
-import { deleteBffSupplier, getBffSuppliers, Pageable, postBffSupplier } from "@/app/(admin)/services/suppliers"
+import { deleteBffSupplier, getBffSuppliers, Pageable, postBffSupplier, putBffSupplier } from "@/app/(admin)/services/suppliers"
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { UUID } from "crypto";
 
@@ -30,6 +30,15 @@ export const fetchDeleteSupplier = createAsyncThunk(
   'supplier/fetchDeleteSupplier/:loading',
   async (id: UUID) => {
     const response = await deleteBffSupplier(id)
+    await wait(1000);
+    return response
+  },
+)
+
+export const fetchUpdateSupplier = createAsyncThunk(
+  'supplier/fetchUpdateSupplier/:loading',
+  async ( { id, supplierInputs } :{ id: UUID, supplierInputs: SupplierInputs }) => {
+    const response = await putBffSupplier(id, supplierInputs)
     await wait(1000);
     return response
   },

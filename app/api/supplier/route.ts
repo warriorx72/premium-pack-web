@@ -13,7 +13,6 @@ export async function POST(req: NextRequest): Promise<Response> {
   } catch (err) {
     if (axios.isAxiosError(err)) {
       const errorResponse: ErrorResponse = {...err?.response?.data} as ErrorResponse;
-      console.log(errorResponse.uuid);
       return new Response(JSON.stringify(errorResponse), {
         status: err?.status
       })

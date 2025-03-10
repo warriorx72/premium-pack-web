@@ -25,9 +25,8 @@ export default function Login() {
 
   const handleSubmit = async(event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    fetchBffLogin(credentials.user, credentials.password).then((response) => {
-      console.log(response);
-      router.push("/dashboard");
+    fetchBffLogin(credentials.user, credentials.password).then(() => {
+    router.push("/dashboard");
     });
   };
 

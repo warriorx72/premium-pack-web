@@ -1,17 +1,18 @@
 'use client'
 import React, { useEffect } from "react";
-import { Pageable, PageableResponse, SortEnum, SuppliersContentResponse } from "../../services/suppliers";
+import { Pageable, PageableResponse, SuppliersContentResponse } from "../../services/suppliers";
 import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
 import { fetchDeleteSupplier, fetchGetSuppliers } from "@/app/store/thunk/supplierThunk";
 import PaginationComponent from "@/app/components/PaginationComponent";
 import { UUID } from "crypto";
 import ModalComponent, { ModalData } from "@/app/components/ModalComponent";
-import { useRouter } from "next/navigation";
 import { deleteSupplier } from "@/app/store/slice/supplierSlice";
+import { useRouter } from "next/navigation";
 
 const ListaPage = () => {
   const dispatch = useAppDispatch();
   const supplierState = useAppSelector((state) => state.supplier);
+  const router = useRouter();
   const [suppliers, setSuppliers] = React.useState<SuppliersContentResponse[]>([]);
   const [paging, setPaging] = React.useState<PageableResponse>({} as PageableResponse);
   const [isModalActive, setIsModalActive] = React.useState<boolean>(false);
@@ -35,6 +36,10 @@ const ListaPage = () => {
   const handleOpenModal = (id: UUID) => {
     setIsModalActive(true);
     setId(id);
+  }
+
+  const handleUpdateSupplier = (id: UUID) => {
+    router.push(`/proveedores/${id}`);
   }
 
   return (
@@ -63,7 +68,7 @@ const ListaPage = () => {
                     <td>{supplier.phone}</td>
                     <td>{supplier.address}</td>
                     <td>
-                      <button type="button" className="btn btn-primary">
+                      <button type="button" className="btn btn-primary" onClick={() => handleUpdateSupplier(supplier.uuid)} >
                         Editar
                       </button>
                       <button type="button" className="btn btn-danger mx-2" onClick={() => handleOpenModal(supplier.uuid)}>

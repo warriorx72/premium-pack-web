@@ -52,7 +52,6 @@ export interface ErrorResponse {
 export const postSupplier = async (supplierInputs: SupplierInputs, token: string): Promise<SupplierResponse> => {
   try {
     const res = await axiosBaas.post(`/supplier`, supplierInputs, { headers: { Authorization: "Bearer " + token } });
-    console.log(res);
     return await res.data as SupplierResponse;
   } catch (err) {
     if (axios.isAxiosError(err)) {
@@ -69,7 +68,7 @@ export const postBffSupplier = async (supplierInputs: SupplierInputs): Promise<S
     const res = await axiosBff.post(`/supplier`, supplierInputs);
     return await res.data as SupplierResponse;
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return {} as SupplierResponse;
   }
 };
@@ -108,7 +107,31 @@ export const deleteBffSupplier = async (id: UUID): Promise<SupplierResponse> => 
     const res = await axiosBff.delete(`/supplier/${id}`);
     return await res.data as SupplierResponse;
   } catch (err) {
-    console.log(err);
+    console.error(err);
+    return {} as SupplierResponse;
+  }
+};
+
+export const putSupplier = async (id: UUID, supplierInputs: SupplierInputs, token: string): Promise<SupplierResponse> => {
+  try {
+    const res = await axiosBaas.put(`/supplier/${id}`, supplierInputs, { headers: { Authorization: "Bearer " + token } });
+    return await res.data as SupplierResponse;
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      throw err;
+    } else {
+      console.error(err);
+      throw new Error('Error fetching');
+    }
+  }
+};
+
+export const putBffSupplier = async (id: UUID, supplierInputs: SupplierInputs): Promise<SupplierResponse> => {
+  try {
+    const res = await axiosBff.put(`/supplier/${id}`, supplierInputs);
+    return await res.data as SupplierResponse;
+  } catch (err) {
+    console.error(err);
     return {} as SupplierResponse;
   }
 };
