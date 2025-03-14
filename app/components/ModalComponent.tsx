@@ -1,3 +1,4 @@
+'use client'
 import { UUID } from 'crypto';
 import React from 'react'
 

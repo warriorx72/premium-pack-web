@@ -135,3 +135,20 @@ export const putBffSupplier = async (id: UUID, supplierInputs: SupplierInputs): 
     return {} as SupplierResponse;
   }
 };
+
+export const getSuppliersByName = async (name: string, token: string): Promise<SuppliersContentResponse[]> => {
+  const res = await axiosBaas.get(`/supplier/find`, { headers: { Authorization: "Bearer " + token }, params: { name } });
+  if (res.status !== 200) {
+    throw new Error('Error fetching');
+  }
+  return await res.data as SuppliersContentResponse[];
+};
+
+export const getBffSuppliersByName = async (name: string): Promise<SuppliersContentResponse[]> => {
+  const res = await axiosBff.get(`/supplier/find`, { params: { name } });
+  if (res.status !== 200) {
+    throw new Error('Error fetching');
+  }
+  return await res.data as SuppliersContentResponse[];
+};
+

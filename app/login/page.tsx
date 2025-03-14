@@ -40,7 +40,6 @@ export default function Login() {
               className="img-fluid"
               alt="Sample image"
             />
-            <link rel="stylesheet" href="login.css" />
           </div>
           <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
             <form>

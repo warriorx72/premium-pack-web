@@ -13,6 +13,7 @@ const PaginationComponent = (props: Props) => {
 
   useEffect(() => {
     props.fetchData({page: 0, size: 10, sort: SortEnum.name});
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handlePageChange = (page: number) => {

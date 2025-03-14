@@ -78,7 +78,6 @@ const ListaPage = () => {
               <a
                 className="page-link bg-dark text-white border-dark"
                 href="#"
-                tabIndex="-1"
                 aria-disabled="true"
               >
                 Previous

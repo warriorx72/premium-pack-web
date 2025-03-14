@@ -9,7 +9,8 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
     ];
-  }
+  },
+  output: 'standalone',
 };
 
 export default nextConfig;

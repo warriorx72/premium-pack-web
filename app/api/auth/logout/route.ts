@@ -8,7 +8,7 @@ export async function POST(): Promise<NextResponse> {
         name: "token",
         value: "",
         httpOnly: true,
-        secure: true,
+        secure: false,
         sameSite: "strict",
         maxAge: 0,
         path: "/",
