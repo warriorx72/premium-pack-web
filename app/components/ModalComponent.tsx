@@ -28,11 +28,11 @@ const ModalComponent = (props: Props) => {
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
-                            <p>¿Deseas eliminar el proveedor?</p>
+                            <p>¿Deseas eliminar el registro {props?.data?.name}?</p>
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={handleIsActive}>Close</button>
-                            <button type="button" className="btn btn-primary" onClick={() => props.handleAction(props.data.uuid)} >Ok</button>
+                            <button type="button" className="btn btn-primary" onClick={() => props.handleAction(props?.data?.uuid)} >Ok</button>
                         </div>
                     </div>
                 </div>

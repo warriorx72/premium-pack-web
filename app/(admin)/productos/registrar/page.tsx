@@ -11,6 +11,7 @@ export interface ProductInputs {
     quantity: number;
     price: number;
     id_supplier: UUID;
+    name_supplier: string
 }
 
 const RegistrarPage = () => {
@@ -22,10 +23,12 @@ const RegistrarPage = () => {
     }
 
     return (
-        <FormProductComponent
-            data={{} as ProductInputs}
-            onSubmit={handleOnSubmit}
-        />
+        <div className="p-4 px-4 mt-4 rounded shadow container-fluid justify-content-center align-items-center" style={{ maxWidth: '1800px', width: '100%', backgroundColor: '#f9f9f9' }}>
+            <FormProductComponent
+                data={{} as ProductInputs}
+                onSubmit={handleOnSubmit}
+            />
+        </div>
     )
 
 }

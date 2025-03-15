@@ -1,5 +1,4 @@
 'use client';
-import { useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleUser } from "@fortawesome/free-regular-svg-icons";
 import { faBox } from "@fortawesome/free-solid-svg-icons";
@@ -8,20 +7,22 @@ import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { faCashRegister } from "@fortawesome/free-solid-svg-icons";
 import { redirect } from "next/navigation";
 import { axiosBff } from "../api/axiosInstance";
+import ImportBootStrap from '../components/ImportBootStrapComponent';
+import { useEffect } from 'react';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-    // const awaitTimeout = (delay: number)  => new Promise(resolve => setTimeout(resolve, delay));
 
-    // const alertSession = async () => {
-    //   await awaitTimeout(1000 * 60 * 23);
-    //   alert("Sesión expirada");
-    //   window.location.href = "/login";
-    // };
+    const awaitTimeout = (delay: number)  => new Promise(resolve => setTimeout(resolve, delay));
+
+    const alertSession = async () => {
+      await awaitTimeout(1000 * 60 * 23);
+      alert("Sesión expirada");
+      window.location.href = "/login";
+    };
 
     useEffect(() => {
-        //   alertSession();
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
-        require("bootstrap/dist/js/bootstrap.bundle.min.js");
+          alertSession();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const removeCookie = async () => {
@@ -47,6 +48,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 </ul>
             </nav>
 
+            <ImportBootStrap>
             <div className="container-fluid px-3 mt-3">
                 <div className="row">
                     <div className="col-md-3">
@@ -103,7 +105,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 </div>
                 <main>{children}</main>
             </div>
-
+            </ImportBootStrap>
         </>
     );
 }

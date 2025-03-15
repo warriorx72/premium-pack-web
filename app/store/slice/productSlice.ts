@@ -1,20 +1,31 @@
-import { ProductResponse } from "@/app/(admin)/services/products";
-import { createSlice } from "@reduxjs/toolkit";
+import { ProductsResponse } from "@/app/(admin)/services/products";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { UUID } from "crypto";
+import { fetchGetProducts } from "../thunk/productThunk";
 
 interface ProductState {
-    productList: ProductResponse;
+    productList: ProductsResponse;
 }
 
 const initialState: ProductState = {
-    productList: {} as ProductResponse,
+    productList: {} as ProductsResponse,
 };
 
 export const productSlice = createSlice({
     name: "supplier",
     initialState,
     reducers: {
+        deleteProduct: (state: ProductState, action: PayloadAction<UUID>) => {
+            state.productList.content = state.productList.content.filter((product) => product.uuid !== action.payload);
+        }
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchGetProducts.fulfilled, (state: ProductState, action: PayloadAction<ProductsResponse>) => {
+                state.productList = action.payload
+            })
     },
 });
 
 export default productSlice.reducer
-export const { } = productSlice.actions
+export const { deleteProduct } = productSlice.actions
