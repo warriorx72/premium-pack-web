@@ -7,17 +7,18 @@ type Props = {
   total_elements: number;
   total_pages: number;
   fetchData: (page: Pageable) => void
+  sort?: SortEnum
 }
 
 const PaginationComponent = (props: Props) => {
 
   useEffect(() => {
-    props.fetchData({page: 0, size: 10, sort: SortEnum.name});
+    props.fetchData({page: 0, size: 10, sort: props.sort ? props.sort : SortEnum.name});
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handlePageChange = (page: number) => {
-    props.fetchData({page: page, size: 10, sort: SortEnum.name});
+    props.fetchData({page: page, size: 10, sort: props.sort ? props.sort : SortEnum.name});
   }
 
   return (

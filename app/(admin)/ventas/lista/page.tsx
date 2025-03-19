@@ -1,6 +1,33 @@
-import React from "react";
+'use client'
+import PaginationComponent from "@/app/components/PaginationComponent";
+import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
+import React, { useEffect } from "react";
+import { OrderResponse, PageableResponse } from "../../services/orders";
+import { fetchGetSales } from "@/app/store/thunk/orderThunks";
+import { Pageable, SortEnum } from "../../services/suppliers";
 
 const ListaPage = () => {
+
+    const dispatch = useAppDispatch();
+    const saleState = useAppSelector((state) => state.order);
+    const [sales, setSales] = React.useState<OrderResponse[]>([]);
+    const [paging, setPaging] = React.useState<PageableResponse>({} as PageableResponse);
+  
+    useEffect(() => {
+      setSales(saleState.saleList.content);
+      setPaging(saleState.saleList.page);
+    }, [saleState.saleList]);
+  
+    const handleFetchSales = (paging: Pageable) => {
+      dispatch(fetchGetSales(paging));
+    };
+  
+    const dateTimeFormatter = (date: Date) => {
+      const dateFormat: string = date.toString().split('T')[0];
+      const timeFormat: string = date.toString().split('T')[1].split('.')[0];
+      return `${dateFormat} ${timeFormat}`;
+    }
+
   return (
     <div
       className="container p-5 mx-auto mt-5 flex-column justify-content-center rounded shadow container-fluid justify-content-center align-items-center"
@@ -14,88 +41,31 @@ const ListaPage = () => {
                 <th>No.</th>
                 <th>Fecha</th>
                 <th>Cliente</th>
-                <th>Detalle del pedido</th>
                 <th>Total</th>
-                <th>Pago</th>
+                <th>Detalle</th>
               </tr>
             </thead>
             <tbody id="myTable">
-              <tr>
-                <td>1</td>
-                <td>20/02/2025</td>
-                <td>username</td>
-                <td></td>
-                <td>$</td>
-                <td>Pagado</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>20/02/2025</td>
-                <td>username</td>
-                <td></td>
-                <td>$</td>
-                <td>Pendiente</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>20/02/2025</td>
-                <td>username</td>
-                <td></td>
-                <td>$</td>
-                <td>Pendiente</td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>20/02/2025</td>
-                <td>username</td>
-                <td></td>
-                <td>$</td>
-                <td>Pendiente</td>
-              </tr>
-              <tr className="success">
-                <td>5</td>
-                <td>20/02/2025</td>
-                <td>username</td>
-                <td></td>
-                <td>$</td>
-                <td>Cancelado</td>
-              </tr>
+              {sales?.map((sale) => (
+                <tr key={sale.uuid}>
+                  <td>{sale.uuid}</td>
+                  <td>{dateTimeFormatter(sale.date)}</td>
+                  <td>{sale.customer_name}</td>
+                  <td>{sale.total}</td>
+                  <td>{sale.description}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
-        <nav aria-label="Pagination">
-          <ul className="pagination px-4 mt-4 justify-content-start">
-            <li className="page-item disabled">
-              <a
-                className="page-link bg-dark text-white border-dark"
-                href="#"
-                aria-disabled="true"
-              >
-                Previous
-              </a>
-            </li>
-            <li className="page-item">
-              <a className="page-link bg-dark text-white border-dark" href="#">
-                1
-              </a>
-            </li>
-            <li className="page-item active">
-              <a className="page-link bg-black text-white border-dark" href="#">
-                2
-              </a>
-            </li>
-            <li className="page-item">
-              <a className="page-link bg-dark text-white border-dark" href="#">
-                3
-              </a>
-            </li>
-            <li className="page-item">
-              <a className="page-link bg-dark text-white border-dark" href="#">
-                Next
-              </a>
-            </li>
-          </ul>
-        </nav>
+        <PaginationComponent
+          size={paging?.size}
+          number={paging?.number}
+          total_elements={paging?.total_elements}
+          total_pages={paging?.total_pages}
+          fetchData={handleFetchSales}
+          sort={SortEnum.date}
+        />
       </div>
     </div>
   );

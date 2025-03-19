@@ -34,6 +34,7 @@ export enum SortEnum {
   address = "address",
   email = "email",
   phone = "phone",
+  date = "date,desc",
 }
 
 export interface Pageable {

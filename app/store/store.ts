@@ -3,6 +3,7 @@ import auth from './slice/authSlice'
 import supplier from './slice/supplierSlice'
 import global from './slice/globalSlice'
 import product from './slice/productSlice'
+import order from './slice/orderSlice'
 
 export const makeStore = () => {
   return configureStore({
@@ -10,7 +11,8 @@ export const makeStore = () => {
       auth,
       supplier,
       global,
-      product
+      product,
+      order,
     },
   })
 }

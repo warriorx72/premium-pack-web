@@ -1,110 +1,81 @@
-import React from "react";
+'use client'
+import PaginationComponent from "@/app/components/PaginationComponent";
+import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
+import React, { useEffect } from "react";
+import { OrderResponse, PageableResponse } from "../../services/orders";
+import { UUID } from "crypto";
+import { Pageable, SortEnum } from "../../services/suppliers";
+import { fetchGetOrders } from "@/app/store/thunk/orderThunks";
+import { useRouter } from "next/navigation";
 
 const ListaPage = () => {
-  return(
-    <div className="container p-5 mx-auto mt-5 flex-column justify-content-center rounded shadow container-fluid justify-content-center align-items-center" style={{maxWidth: '1800px', width: '100%'}}>
+
+  const dispatch = useAppDispatch();
+  const orderState = useAppSelector((state) => state.order);
+  const router = useRouter();
+  const [orders, setOrders] = React.useState<OrderResponse[]>([]);
+  const [paging, setPaging] = React.useState<PageableResponse>({} as PageableResponse);
+
+  useEffect(() => {
+    setOrders(orderState.orderList.content);
+    setPaging(orderState.orderList.page);
+  }, [orderState.orderList]);
+
+  const handleFetchOrders = (paging: Pageable) => {
+    dispatch(fetchGetOrders(paging));
+  };
+
+  const handleUpdateOrder = (id: UUID) => {
+    router.push(`/pedidos/${id}`);
+  }
+
+  const dateTimeFormatter = (date: Date) => {
+    const dateFormat: string = date.toString().split('T')[0];
+    const timeFormat: string = date.toString().split('T')[1].split('.')[0];
+    return `${dateFormat} ${timeFormat}`;
+  }
+
+  return (
+    <div className="container p-5 mx-auto mt-5 flex-column justify-content-center rounded shadow container-fluid justify-content-center align-items-center" style={{ maxWidth: '1800px', width: '100%' }}>
       <div className="row">
         <div className="table-responsive">
           <table className="table table-hover">
             <thead>
               <tr>
-                <th>No.</th>
+                <th>No. Pedido</th>
                 <th>Fecha</th>
                 <th>Cliente</th>
                 <th>Teléfono</th>
-                <th>Detalle del pedido</th>
                 <th>Estado</th>
                 <th>Total</th>
-                <th>Pago</th>
+                <th>Acciones</th>
               </tr>
             </thead>
             <tbody id="myTable">
-              <tr>
-                <td>1</td>
-                <td>20/02/2025</td>
-                <td>username</td>
-                <td>+52</td>
-                <td></td>
-                <td>Aprobado</td>
-                <td>$</td>
-                <td>Pagado</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>20/02/2025</td>
-                <td>username</td>
-                <td>+52</td>
-                <td></td>
-                <td>En espera</td>
-                <td>$</td>
-                <td>Pendiente</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>20/02/2025</td>
-                <td>username</td>
-                <td>+52</td>
-                <td></td>
-                <td>En espera</td>
-                <td>$</td>
-                <td>Pendiente</td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>20/02/2025</td>
-                <td>username</td>
-                <td>+52</td>
-                <td></td>
-                <td>En espera</td>
-                <td>$</td>
-                <td>Pendiente</td>
-              </tr>
-              <tr className="success">
-                <td>5</td>
-                <td>20/02/2025</td>
-                <td>username</td>
-                <td>+52</td>
-                <td></td>
-                <td>Cancelado</td>
-                <td>$</td>
-                <td>Cancelado</td>
-              </tr>
+              {orders?.map((order) => (
+                <tr key={order.uuid}>
+                  <td>{order.uuid}</td>
+                  <td>{dateTimeFormatter(order.date)}</td>
+                  <td>{order.customer_name}</td>
+                  <td>{order.phone}</td>
+                  <td>{order.status}</td>
+                  <td>{order.total}</td>
+                  <td>
+                    <button className="btn btn-primary" onClick={() => handleUpdateOrder(order.uuid)}>Actualizar</button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
-        <nav aria-label="Pagination">
-          <ul className="pagination px-4 mt-4 justify-content-start">
-            <li className="page-item disabled">
-              <a
-                className="page-link bg-dark text-white border-dark"
-                href="#"
-                aria-disabled="true"
-              >
-                Previous
-              </a>
-            </li>
-            <li className="page-item">
-              <a className="page-link bg-dark text-white border-dark" href="#">
-                1
-              </a>
-            </li>
-            <li className="page-item active">
-              <a className="page-link bg-black text-white border-dark" href="#">
-                2
-              </a>
-            </li>
-            <li className="page-item">
-              <a className="page-link bg-dark text-white border-dark" href="#">
-                3
-              </a>
-            </li>
-            <li className="page-item">
-              <a className="page-link bg-dark text-white border-dark" href="#">
-                Next
-              </a>
-            </li>
-          </ul>
-        </nav>
+        <PaginationComponent
+          size={paging?.size}
+          number={paging?.number}
+          total_elements={paging?.total_elements}
+          total_pages={paging?.total_pages}
+          fetchData={handleFetchOrders}
+          sort={SortEnum.date}
+        />
       </div>
     </div>
   )

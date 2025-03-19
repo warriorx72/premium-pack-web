@@ -92,13 +92,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     <div className="col-md-3">
                         <div className="card bg-dark text-white text-center" style={{ height: "50px" }}>
                             <div className="card-body dropdown p-2 d-flex justify-content-center">
-                                <button className="btn btn-dark dropdown-toggle" type="button" id="dropdownVentas" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button className="btn btn-dark" type="button" onClick={() => redirect('/ventas/lista')}>
                                     Ventas <FontAwesomeIcon icon={faCashRegister} size="lg" />
                                 </button>
-                                <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownVentas">
-                                    <li><button className="dropdown-item" onClick={() => redirect('/ventas/lista')}>Historial de ventas</button></li>
-                                    <li><button className="dropdown-item" onClick={() => redirect('/ventas/registrar')}>Nueva venta</button></li>
-                                </ul>
                             </div>
                         </div>
                     </div>

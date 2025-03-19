@@ -11,7 +11,7 @@ const wait = (ms: number) =>
     });
 
 export const fetchPostProduct = createAsyncThunk(
-    'supplier/fetchPostProduct/:loading',
+    'product/fetchPostProduct/:loading',
     async (productInputs: ProductInputs) => {
         const response = await postBffProduct(productInputs)
         await wait(1000);
@@ -20,7 +20,7 @@ export const fetchPostProduct = createAsyncThunk(
 )
 
 export const fetchGetProducts = createAsyncThunk(
-  'supplier/fetchGetProducts/:loading',
+  'product/fetchGetProducts/:loading',
   async (pageable: Pageable) => {
     const response = await getBffProducts(pageable)
     await wait(1000);
@@ -29,7 +29,7 @@ export const fetchGetProducts = createAsyncThunk(
 )
 
 export const fetchDeleteProduct = createAsyncThunk(
-  'supplier/fetchDeleteProduct/:loading',
+  'product/fetchDeleteProduct/:loading',
   async (id: UUID) => {
     const response = await deleteBffProduct(id)
     await wait(1000);
@@ -38,7 +38,7 @@ export const fetchDeleteProduct = createAsyncThunk(
 )
 
 export const fetchUpdateProduct = createAsyncThunk(
-  'supplier/fetchUpdateProduct/:loading',
+  'product/fetchUpdateProduct/:loading',
   async ( { id, productInputs } :{ id: UUID, productInputs: ProductInputs }) => {
     const response = await putBffProduct(id, productInputs)
     await wait(1000);
