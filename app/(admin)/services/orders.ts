@@ -13,6 +13,7 @@ export enum OrderStatus {
 
 export interface OrderResponse {
     uuid: UUID;
+    id_text: string;
     date: Date;
     customer_name: string;
     phone: string;

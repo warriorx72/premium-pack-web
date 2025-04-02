@@ -48,7 +48,7 @@ const ListaPage = () => {
             <tbody id="myTable">
               {sales?.map((sale) => (
                 <tr key={sale.uuid}>
-                  <td>{sale.uuid}</td>
+                  <td>{sale.id_text}</td>
                   <td>{dateTimeFormatter(sale.date)}</td>
                   <td>{sale.customer_name}</td>
                   <td>{sale.total}</td>

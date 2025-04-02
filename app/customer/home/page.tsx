@@ -1,8 +1,7 @@
 'use client'
-import { axiosBaas } from '@/app/api/axiosInstance';
-import { UUID } from 'crypto';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { postBffOrders } from '../services/orders';
 
 type CustomerInputs = {
     name: string;
@@ -12,7 +11,7 @@ type CustomerInputs = {
 
 export default function Home() {
 
-  const openWhatsApp = (data: CustomerInputs, uuid: UUID) => {
+  const openWhatsApp = (data: CustomerInputs, uuid: string) => {
     const newWindow = window.open(`https://api.whatsapp.com/send/?phone=522211163400&text=Hola,+mi+número+de+pedido+es:+${uuid}+->+${data.orderDetail}&type=phone_number&app_absent=0`, '_blank', 'noopener,noreferrer')
     if (newWindow) newWindow.opener = null
   }
@@ -26,11 +25,11 @@ export default function Home() {
 
 
   const onSubmitHandler: SubmitHandler<CustomerInputs> = (data: CustomerInputs) => {
-    axiosBaas.post('/order', { customer_name: data.name, phone: data.phone, description: data.orderDetail }).then(res => {
-      alert(`Número de pedido: ${res.data.uuid}`);
-      openWhatsApp(data, res.data.uuid);
+    postBffOrders({ customer_name: data.name, phone: data.phone, description: data.orderDetail }).then(res => {
+      alert(`Número de pedido: ${res.id_text}`);
+      openWhatsApp(data, res.id_text);
       reset({ name: '', phone: '', orderDetail: '' });
-  });
+    })
   }
 
   const validateNoEmptySpaces = (value: string) => {

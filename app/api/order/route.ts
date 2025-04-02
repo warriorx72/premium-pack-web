@@ -1,6 +1,7 @@
 import { OrderInputs } from "@/app/(admin)/pedidos/[id]/page";
 import { getOrders, OrderResponse, OrdersResponse, putOrder } from "@/app/(admin)/services/orders";
 import { ErrorResponse, Pageable, SortEnum } from "@/app/(admin)/services/suppliers";
+import { OrderRequest, postOrders } from "@/app/customer/services/orders";
 import axios from "axios";
 import { UUID } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
@@ -43,6 +44,32 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     try {
         const orderInputs: OrderInputs = await req.json();
         const rs: OrderResponse = await putOrder(id, orderInputs, jwt);
+        const resp: NextResponse = NextResponse.json(rs);
+        return resp;
+    } catch (err) {
+        if (axios.isAxiosError(err)) {
+            const errorResponse: ErrorResponse = { ...err?.response?.data } as ErrorResponse;
+            return new Response(JSON.stringify(errorResponse), {
+                status: err?.status
+            })
+        } else {
+            console.error(err);
+            return NextResponse.json(
+                {
+                    message: "Invalid credentials",
+                },
+                {
+                    status: 401,
+                }
+            );
+        }
+    }
+}
+
+export async function POST(req: NextRequest): Promise<Response> {
+    try {
+        const orderInputs: OrderRequest = await req.json();
+        const rs: OrderResponse = await postOrders(orderInputs);
         const resp: NextResponse = NextResponse.json(rs);
         return resp;
     } catch (err) {
